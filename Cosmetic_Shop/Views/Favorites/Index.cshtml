@@ -1,0 +1,61 @@
+﻿@model List<dynamic>
+@{
+    ViewData["Title"] = "Your Favorites";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorites - Cosmetic Online Store</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/Favorites.css">
+
+</head>
+<body>
+    <div class="free-shipping">🚚 Free shipping over 50$ 🚚</div>
+
+    <div class="top-images">
+        <img src="/images/pres1.jpg" alt="Top Image">
+    </div>
+
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="current-user-id" value="@ViewBag.UserId" />
+
+    <div class="favorites">
+        <h2>Your Favorites</h2>
+
+        <div id="favorites-list">
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var product in Model)
+                {
+                    <div class="product" data-product-id="@product.productId">
+                        <img src="@product.image" alt="@product.name" />
+                        <h3>@product.name</h3>
+                        <p>@product.description</p>
+                        <p>Price: $@product.price</p>
+
+                        <button class="add-to-cart"
+                                data-product-id="@product.productId"
+                                data-user-id="@ViewBag.UserId">
+                            Add to Cart
+                        </button>
+                    </div>
+                }
+
+            }
+            else
+            {
+                <p>No favorites yet.</p>
+            }
+        </div>
+
+
+        @section Scripts {
+            <script src="https://kit.fontawesome.com/your-fontawesome-key.js" crossorigin="anonymous"></script>
+            @* <script src="/js/AddToCart.js"></script> *@
+        }
+
+</body>
+</html>

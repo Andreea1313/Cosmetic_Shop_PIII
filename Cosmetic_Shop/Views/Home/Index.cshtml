@@ -1,0 +1,171 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using CosmeticShop.Models
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@functions {
+    public async Task<bool> IsAdminAsync()
+    {
+        if (SignInManager.IsSignedIn(User))
+        {
+            var user = await UserManager.GetUserAsync(User);
+            return user != null && await UserManager.IsInRoleAsync(user, "Admin");
+        }
+        return false;
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+</head>
+<body>
+    <div class="free-shipping">🚚 Free shipping over 50$ 🚚</div>
+    
+    <div class="top-images">
+        <img src="/images/pres1.jpg">
+    </div>
+
+    <nav>
+        <div class="category">
+            <a asp-controller="Category" asp-action="Index" asp-route-category="hair">
+                <img src="/images/hair.webp" alt="Hair">
+            </a>
+            <p>Hair</p>
+        </div>
+        <div class="category">
+            <a asp-controller="Category" asp-action="Index" asp-route-category="skincare">
+                <img src="/images/skincare.jpg" alt="Skincare">
+            </a>
+            <p>Skincare</p>
+        </div>
+        <div class="category">
+            <a asp-controller="Category" asp-action="Index" asp-route-category="bodycare">
+                <img src="/images/bodycare.webp" alt="Body Care">
+            </a>
+            <p>Body Care</p>
+        </div>
+        <div class="category">
+            <a asp-controller="Category" asp-action="Index" asp-route-category="makeup">
+                <img src="/images/makeup.jpg" alt="Makeup">
+            </a>
+            <p>Makeup</p>
+        </div>
+        <div class="category">
+            <a asp-controller="Category" asp-action="Index" asp-route-category="nails">
+                <img src="/images/nails.webp" alt="Nails">
+            </a>
+            <p>Nails</p>
+        </div>
+    </nav>
+
+    <div class="top-products">
+        <h2>TOP PRODUCTS</h2>
+    </div>
+
+    <div class="product-carousel-container">
+        <button class="scroll-btn left" onclick="scrollProducts('left')">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <section class="products-scrollable" id="productsContainer">
+            @foreach (var product in Model)
+            {
+                <div class="product" data-category="@product.Category">
+                    <a asp-controller="Product" asp-action="Index"
+                       asp-route-productId="@product.ProductId"
+                       asp-route-image="@product.ImageUrl"
+                       asp-route-name="@product.Name"
+                       asp-route-description="@product.Description"
+                       asp-route-price="@product.Price">
+                        <img src="@product.ImageUrl" alt="@product.Name">
+                    </a>
+                    <h3>@product.Name</h3>
+                    <p>@product.Description</p>
+                    <div class="price">$@product.Price</div>
+                    <button class="add-to-cart"
+                            data-product-id="@product.ProductId"
+                            data-user-id="1">
+                        Add to Cart
+                    </button>
+                    <button class="like-btn" data-product-id="@product.ProductId" data-user-id="@ViewBag.UserId">
+                        @{
+                            var favIds = ViewBag.FavoriteProductIds as List<int> ?? new List<int>();
+                            bool isFav = favIds.Contains(product.ProductId);
+                        }
+
+                        <i class="@(isFav ? "fa-solid" : "fa-regular") fa-heart"></i>
+                    </button>
+                </div>
+            }
+        </section>
+
+        <button class="scroll-btn right" onclick="scrollProducts('right')">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <script>
+        function scrollProducts(direction) {
+            const container = document.getElementById("productsContainer");
+            const scrollAmount = 300;
+
+            if (direction === "left") {
+                container.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+            } else {
+                container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+            }
+        }
+    </script>
+
+    <div class="pink-container">
+        <div class="text-section">
+            <h2>Your One-Stop Beauty Shop</h2>
+            <p>Explore our wide range of premium beauty products. From makeup to skincare, body care, nail care, and hair care, we offer everything you need for a complete, natural beauty routine.</p>
+            <a asp-controller="AboutUs" asp-action="Index">
+                <button class="about-btn">More about us</button>
+            </a>
+        </div>
+        <div class="image-section">
+            <img src="/images/lay1.jpg" alt="Soap Image">
+            <div class="quote">
+                <p><em>"Since love grows within you, so beauty grows. For love is the beauty of the soul."</em></p>
+                <span>— Saint Augustine</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="features">
+        <div class="feature-item">
+            <img src="/images/pickup.png" alt="Pickup">
+            <p><strong>Pickup from store in 2H.</strong></p>
+        </div>
+        <div class="feature-item">
+            <img src="/images/delivery.png" alt="Free Delivery">
+            <p>Free delivery for orders over 50$</p>
+        </div>
+        <div class="feature-item">
+            <img src="/images/samples.png" alt="Free Samples">
+            <p>Free samples</p>
+        </div>
+        <div class="feature-item">
+            <img src="/images/original.png" alt="Original Products">
+            <p>Original products</p>
+        </div>
+        <div class="feature-item">
+            <img src="/images/card.png" alt="Secure Payment">
+            <p>Secure payment <br> <span>Visa, Mastercard</span></p>
+        </div>
+    </div>
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="current-user-id" value="@ViewBag.UserId" />
+    @* <script src="/js/AddToCart.js"></script> *@
+    <script src="/js/Category.js"></script>
+    <script src="/js/Home.js"></script>
+
+</body>
+</html>

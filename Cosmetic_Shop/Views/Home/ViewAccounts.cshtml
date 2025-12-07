@@ -1,0 +1,36 @@
+﻿@model List<Cosmetic_Shop.Services.Interfaces.UserViewModel>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "All Accounts";
+    
+}
+
+@section Styles {
+    <link rel="stylesheet" href="/css/Admin.css">
+}
+<div class="container-accounts">
+    <h2>All User Accounts</h2>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>    
+                    <td>@user.Id</td>
+                    <td>@user.Name</td>
+                    <td>@user.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a href="/Home/Index" class="back-btn">← Back to Dashboard</a>
+</div>

@@ -1,0 +1,296 @@
+﻿body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f1f7;
+    color: #333;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+    nav ul li a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+    }
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px;
+    background: #f7f1f7;
+}
+
+.hero-text {
+    width: 50%;
+    font-family: Apple Chancery, cursive;
+}
+
+    .hero-text h1 {
+        font-size: 36px;
+        color: #000;
+    }
+
+    .hero-text p {
+        font-size: 16px;
+        color: #666;
+    }
+
+.hero-image {
+    width: 45%;
+    position: relative;
+}
+
+    .hero-image img {
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        height: 300px;
+    }
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 40px;
+    background: #f7f1f7;
+}
+
+.stat {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.mission-vision {
+    display: flex;
+    gap: 20px;
+    padding: 50px;
+}
+
+.mission,
+.vision {
+    flex: 1;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.team {
+    text-align: center;
+    padding: 50px;
+    background: #fff;
+}
+
+.team-members {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.member {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.image-gallery {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 50px;
+    position: relative;
+    width: 100%;
+}
+
+    .image-gallery img {
+        width: 300px;
+        max-width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease-in-out;
+    }
+
+        .image-gallery img:nth-child(1) {
+            transform: rotate(-10deg) translateX(-20px);
+            z-index: 1;
+        }
+
+        .image-gallery img:nth-child(2) {
+            transform: rotate(0deg);
+            z-index: 2;
+        }
+
+        .image-gallery img:nth-child(3) {
+            transform: rotate(10deg) translateX(20px);
+            z-index: 1;
+        }
+
+        .image-gallery img:hover {
+            transform: scale(1.05);
+            z-index: 3;
+        }
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #222;
+    color: #fff;
+}
+
+.hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    background: #f7f1f7;
+    text-align: center;
+}
+
+.hero-text {
+    max-width: 600px;
+    margin: 20px;
+}
+
+.hero-image img {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+.stats {
+    flex-wrap: wrap;
+    text-align: center;
+    font-weight: bold;
+}
+
+.stat {
+    background: #ff69b4;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px;
+    min-width: 200px;
+}
+
+.mission-vision {
+    display: flex;
+    justify-content: space-between;
+    padding: 50px;
+    background: #f7f1f7;
+}
+
+.mission,
+.vision {
+    width: 45%;
+    padding: 20px;
+    background: #f7f1f7;
+    border-radius: 10px;
+}
+
+.mission-image,
+.vision-image {
+    width: 30%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .mission-image img,
+    .vision-image img {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+.mission-vision:nth-child(2) {
+    flex-direction: row-reverse;
+}
+
+.mission,
+.vision {
+    text-align: left;
+    font-family: Apple Chancery, cursive;
+}
+
+.image-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 40px;
+    background: #f7f1f7;
+}
+
+    .image-gallery img {
+        max-width: 300px;
+        border-radius: 10px;
+    }
+
+.team {
+    background: #f7f1f7;
+    padding: 40px;
+    text-align: center;
+}
+
+.team-members {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.member {
+    background: #ff69b4;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    max-width: 250px;
+}
+
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.brands {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #f7f1f7;
+    border-radius: 10px;
+    margin: 40px auto;
+    max-width: 80%;
+    font-family: Apple Chancery, cursive;
+}
+
+    .brands h2 {
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .brands p {
+        font-size: 1.1rem;
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 30px;
+    }
+
+    .brands img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }

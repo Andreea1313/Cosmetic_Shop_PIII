@@ -1,0 +1,140 @@
+﻿body {
+    background: url('/images/userbg.jpg');
+    display: block;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.user-container {
+    background: #ede5e5;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    text-align: center;
+    margin: 10%;
+}
+
+.user-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.user-info p {
+    margin: 15px 0;
+    font-size: 16px;
+}
+
+.edit-profile {
+    background-color: #ff66b2;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.history {
+    margin-top: 3%;
+}
+
+.edit-profile:hover {
+    background-color: #db3a9d;
+}
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+    .order-table th, .order-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+
+    .order-table th {
+        background-color: #ff66b2;
+        color: white;
+    }
+
+.profile-picture {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.user-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #aaa;
+    margin-bottom: 10px;
+}
+
+.picture-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.edit-profile {
+    background-color: #ff69b4;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+    .edit-profile:hover {
+        background-color: #e058a1;
+    }
+.profile-picture-container {
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+.profile-picture-wrapper {
+    display: inline-block;
+    position: relative;
+}
+
+.user-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #aaa;
+}
+
+.edit-icon {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    width: 30px;
+    height: 30px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 0 6px rgba(0,0,0,0.2);
+    transition: background-color 0.2s ease;
+}
+
+    .edit-icon:hover {
+        background-color: #eaeaea;
+    }
+
+    .edit-icon img {
+        width: 16px;
+        height: 16px;
+    }

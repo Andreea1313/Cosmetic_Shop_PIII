@@ -1,0 +1,107 @@
+﻿@page
+@model CosmeticShop.Pages.Profile.IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/home.css" />
+    <link rel="stylesheet" href="~/css/User.css" />
+}
+
+<div class="user-container">
+    <h2>User Profile</h2>
+    <div class="user-info">
+
+        <div class="profile-picture-container">
+            <form method="post" asp-page-handler="UploadPicture" enctype="multipart/form-data">
+                <div class="profile-picture-wrapper">
+                    <img id="profile-preview"
+                         src="@(!string.IsNullOrEmpty(Model.AppUser.ProfilePicturePath) ? Model.AppUser.ProfilePicturePath : "/images/user.png")"
+                         alt="User" class="user-avatar" />
+
+                    <label for="profile-pic" class="edit-icon">
+                        <img src="/images/pen.png" alt="Edit" />
+                    </label>
+
+                    <input type="file" name="ProfileImage" id="profile-pic" accept="image/*"
+                           style="display: none;" onchange="previewImage(event)" />
+                </div>
+
+                <button type="submit" class="edit-profile" id="upload-btn" style="display:none;">
+                    Save Picture
+                </button>
+            </form>
+        </div>
+
+
+        <!-- Profile Info Form -->
+        <form method="post">
+            <p>
+                <strong>Name:</strong>
+                <input asp-for="Input.Name" id="name" readonly />
+                <span asp-validation-for="Input.Name" class="text-danger"></span>
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                <input type="email" value="@Model.AppUser.Email" id="email" readonly />
+            </p>
+
+            <p>
+                <strong>Phone:</strong>
+                <input asp-for="Input.PhoneNumber" id="phone" readonly />
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </p>
+
+            <p>
+                <strong>Address:</strong>
+                <input asp-for="Input.Address" id="address" readonly />
+                <span asp-validation-for="Input.Address" class="text-danger"></span>
+            </p>
+
+            <p>
+                <strong>Gender:</strong>
+                <select asp-for="Input.Gender" id="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+                <span asp-validation-for="Input.Gender" class="text-danger"></span>
+            </p>
+
+            <button type="button" class="edit-profile" onclick="enableEdit()">Edit Profile</button>
+            <button type="submit" id="save-btn" class="edit-profile" style="display:none;">Save</button>
+
+            @if (!string.IsNullOrEmpty(Model.StatusMessage))
+            {
+                <div class="alert alert-success mt-3">@Model.StatusMessage</div>
+            }
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                document.getElementById('profile-preview').src = reader.result;
+                document.getElementById('upload-btn').style.display = 'inline-block';
+            };
+            if (event.target.files[0]) {
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        }
+
+        function enableEdit() {
+            document.getElementById('name').removeAttribute('readonly');
+            document.getElementById('phone').removeAttribute('readonly');
+            document.getElementById('address').removeAttribute('readonly');
+            document.getElementById('gender').removeAttribute('disabled');
+            document.getElementById('save-btn').style.display = 'inline-block';
+        }
+    </script>
+}

@@ -1,0 +1,118 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+.login-page-wrapper {
+    background: url('/images/login.jpeg') no-repeat center center;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-form-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 40px 50px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+}
+
+    .login-form-container h2 {
+        text-align: center;
+        font-size: 28px;
+        margin-bottom: 30px;
+        color: #e83e8c;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .login-form-container input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 18px;
+        border-radius: 30px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+.login-button {
+    background-color: #e83e8c;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+}
+
+    .login-button:hover {
+        background-color: #cc336f;
+    }
+
+.login-form-container a {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #333;
+    text-decoration: none;
+    text-align: center;
+}
+
+
+.login-image {
+    flex: 1;
+    background: url('/images/login.jpeg') no-repeat center center;
+    background-size: cover;
+}
+
+.login-form-container input[type="email"],
+.login-form-container input[type="password"],
+.login-form-container input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 18px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    background-color: #e7efff;
+}
+
+.small-checkbox {
+    width: 6px !important;
+    height: 6px !important;
+    padding-block: 8px;
+    margin-right: 2px;
+    transform: translateY(1px);
+}

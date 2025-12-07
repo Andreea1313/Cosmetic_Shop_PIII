@@ -1,0 +1,135 @@
+﻿@{
+    ViewData["Title"] = "Checkout";
+    var cartItems = ViewBag.CartItems as IEnumerable<dynamic>;
+    decimal subtotal = 0;
+}
+
+<head>
+    <link rel="stylesheet" href="/css/home.css" />
+    <link rel="stylesheet" href="/css/Checkout.css" />
+</head>
+
+<body style="background: url('/images/userbg.jpg');">
+    <div class="checkout-container">
+        <h1>Checkout</h1>
+        <h2>Your Order Summary</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in cartItems)
+                {
+                    var itemTotal = (decimal)item.price * (int)item.quantity;
+                    subtotal += itemTotal;
+                    <tr>
+                        <td>@item.name</td>
+                        <td>@item.quantity</td>
+                        <td>$@item.price</td>
+                        <td>$@itemTotal</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="order-total">
+            <p>Subtotal: $@subtotal</p>
+            <p>Shipping: $@(subtotal > 50 ? 0 : 5)</p>
+            <p class="total">Total: $@(subtotal + (subtotal > 50 ? 0 : 5))</p>
+        </div>
+
+        <form asp-action="SubmitOrder" method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label for="Address">Address</label>
+                <input name="Address" id="Address" required />
+            </div>
+            <div class="form-group">
+                <label for="City">City</label>
+                <input name="City" id="City" required />
+            </div>
+            <div class="form-group">
+                <label for="ZIPCode">ZIP Code</label>
+                <input name="ZIPCode" id="ZIPCode" required />
+            </div>
+            <div class="form-group">
+                <label for="PhoneNumber">Phone</label>
+                <input name="PhoneNumber" id="PhoneNumber" required />
+            </div>
+            <div class="form-group">
+                <label for="PaymentTypeId">Payment Type</label>
+                <select id="payment-type" name="PaymentTypeId" required>
+                    <option value="1">Credit Card</option>
+                    <option value="2">Cash on Delivery</option>
+                    <option value="3">Bank Transfer</option>
+                </select>
+            </div>
+
+            <!-- CREDIT CARD DETAILS -->
+            <div id="card-fields" style="display: none;">
+                <div class="form-group">
+                    <label for="CardName">Name on Card</label>
+                    <input id="CardName" name="CardName" />
+                </div>
+                <div class="form-group">
+                    <label for="CardNumber">Card Number</label>
+                    <input id="CardNumber" name="CardNumber" />
+                </div>
+                <div class="form-group">
+                    <label for="Expiration">Expiration Date</label>
+                    <input type="month" id="Expiration" name="Expiration" />
+                </div>
+                <div class="form-group">
+                    <label for="CVV">CVV</label>
+                    <input id="CVV" name="CVV" />
+                </div>
+            </div>
+
+            <!-- BANK TRANSFER DETAILS -->
+            <div id="transfer-fields" style="display: none;">
+                <div class="form-group">
+                    <label for="BankName">Bank Name</label>
+                    <input id="BankName" name="BankName" />
+                </div>
+                <div class="form-group">
+                    <label for="IBAN">IBAN</label>
+                    <input id="IBAN" name="IBAN" />
+                </div>
+            </div>
+
+            <button type="submit">Confirm Order</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const paymentType = document.getElementById("payment-type");
+            const cardFields = document.getElementById("card-fields");
+            const transferFields = document.getElementById("transfer-fields");
+
+            function updateFields() {
+                const selected = paymentType.value;
+                if (selected === "1") { 
+                    cardFields.style.display = "block";
+                    transferFields.style.display = "none";
+                } else if (selected === "3") { 
+                    cardFields.style.display = "none";
+                    transferFields.style.display = "block";
+                } else {
+                    cardFields.style.display = "none";
+                    transferFields.style.display = "none";
+                }
+            }
+
+            paymentType.addEventListener("change", updateFields);
+            updateFields(); 
+        });
+    </script>
+</body>

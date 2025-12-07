@@ -1,0 +1,159 @@
+﻿body {
+    background: url('/images/userbg.jpg');
+}
+
+.checkout-container {
+    padding: 40px;
+    max-width: 75%;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+h2 {
+    margin-top: 40px;
+    font-size: 1.8em;
+    text-align: center;
+    color: #555;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+th {
+    background-color: #ff66b2;
+    color: white;
+    font-weight: bold;
+}
+
+td {
+    background-color: #fafafa;
+}
+
+.order-total, .checkout-total {
+    text-align: right;
+    margin-top: 30px;
+    font-size: 1.5em;
+    color: #333;
+    font-weight: bold;
+}
+
+.checkout-container form {
+    margin-top: 40px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #444;
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1.1em;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+}
+
+    input:focus {
+        border-color: #ff66b2;
+        outline: none;
+    }
+
+button {
+    padding: 18px 35px;
+    background-color: #ff66b2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.2em;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+    button:hover {
+        background-color: #ff3385;
+    }
+
+    button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+
+.checkout-container .order-summary {
+    margin-top: 40px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+    .checkout-container .order-summary h3 {
+        font-size: 1.6em;
+        margin-bottom: 15px;
+        color: #333;
+    }
+
+    .checkout-container .order-summary p {
+        font-size: 1.1em;
+        color: #555;
+        margin-bottom: 8px;
+    }
+
+    .checkout-container .order-summary .total {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #ff66b2;
+    }
+#payment-type {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #ff66b2;
+    border-radius: 6px;
+    font-size: 1.1em;
+    background-color: #fff;
+    color: #444;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    #payment-type:focus {
+        border-color: #ff3385;
+        outline: none;
+        background-color: #ffe6f0;
+    }
+
+    #payment-type:hover {
+        background-color: #f2edf1;
+    }
+

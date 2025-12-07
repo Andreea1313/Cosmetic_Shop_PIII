@@ -1,0 +1,22 @@
+﻿@page
+@model ConfirmEmailModel
+@{
+    Layout = "~/Views/Shared/AuthLayout.cshtml";
+    ViewData["Title"] = "Confirm Email";
+}
+
+<div class="login-page-wrapper">
+    <div class="login-form-container" style="text-align: center;">
+        <h2 style="color: #d10042; font-size: 26px; margin-bottom: 20px;">
+            Email Confirmed
+        </h2>
+
+        <partial name="_StatusMessage" model="Model.StatusMessage" />
+
+        <div style="margin-top: 30px;">
+            <a asp-page="./Login" class="login-button" style="text-decoration: none; display: inline-block; width: auto; padding: 10px 25px;">
+                Go to Login
+            </a>
+        </div>
+    </div>
+</div>

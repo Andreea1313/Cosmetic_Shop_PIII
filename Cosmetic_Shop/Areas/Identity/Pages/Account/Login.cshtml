@@ -1,0 +1,33 @@
+﻿@page
+@model LoginModel
+@{
+    Layout = "~/Views/Shared/AuthLayout.cshtml";
+    ViewData["Title"] = "Login";
+}
+
+<div class="login-page-wrapper">
+    <div class="login-form-container">
+        <h2>Login</h2>
+
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+
+            <input asp-for="Input.Email" type="email" placeholder="Email" />
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
+
+            <input asp-for="Input.Password" type="password" placeholder="Password" />
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+
+            <button type="submit" class="login-button">LOGIN</button>
+
+            <div class="text-center mt-3">
+                <a asp-page="./ForgotPassword">Forgot password?</a><br />
+                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Don’t have an account? Register</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

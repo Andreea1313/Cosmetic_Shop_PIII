@@ -1,0 +1,92 @@
+﻿@model CosmeticShop.Models.User
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/User.css">
+</head>
+<body>
+    <div class="user-container">
+        <h2>User Profile</h2>
+        <div class="user-info">
+            <div class="profile-picture">
+                <img id="profile-preview"
+                     src="@(!string.IsNullOrEmpty(Model.ProfilePicturePath) ? Model.ProfilePicturePath : "/images/default-user.png")"
+                     alt="User" class="user-avatar" />
+
+                <form id="profile-picture-form"
+                      asp-controller="User"
+                      asp-action="UpdateProfilePicture"
+                      method="post"
+                      enctype="multipart/form-data">
+
+                    <input type="file" name="profileImage" id="profile-pic" accept="image/*"
+                           style="display:none;" onchange="previewImage(event)" />
+
+                    <div class="picture-buttons">
+                        <button type="button" class="edit-profile" onclick="document.getElementById('profile-pic').click();">
+                            Choose New Picture
+                        </button>
+
+                        <button type="submit" class="edit-profile" id="upload-btn" style="display:none;">
+                            Save Picture
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+
+            <p><strong>Name:</strong> <input type="text" id="name" value="Andreea Cruceru" readonly></p>
+            <p><strong>Email:</strong> <input type="email" id="email" value="andreea10@gmail.com" readonly></p>
+            <p><strong>Phone:</strong> <input type="text" id="phone" value="+1234567890" readonly></p>
+            <p><strong>Address:</strong> <input type="text" id="address" value="Street" readonly></p>
+            <p>
+                <strong>Gender:</strong>
+                <select id="gender" disabled>
+                    <option value="Male" selected>Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </p>
+
+            <button class="edit-profile" onclick="enableEdit()">Edit Profile</button>
+            <button id="save-btn" class="edit-profile" onclick="saveProfile()" style="display:none;">Save</button>
+        </div>
+    </div>
+
+    <script>
+        function enableEdit() {
+            document.getElementById('name').removeAttribute('readonly');
+            document.getElementById('email').removeAttribute('readonly');
+            document.getElementById('phone').removeAttribute('readonly');
+            document.getElementById('address').removeAttribute('readonly');
+            document.getElementById('gender').removeAttribute('disabled');
+            document.getElementById('save-btn').style.display = 'inline-block';
+        }
+
+        function saveProfile() {
+            alert('Profile updated successfully!');
+            document.getElementById('name').setAttribute('readonly', true);
+            document.getElementById('email').setAttribute('readonly', true);
+            document.getElementById('phone').setAttribute('readonly', true);
+            document.getElementById('address').setAttribute('readonly', true);
+            document.getElementById('gender').setAttribute('disabled', true);
+            document.getElementById('save-btn').style.display = 'none';
+        }
+
+            function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                document.getElementById('profile-preview').src = reader.result;
+                document.getElementById('upload-btn').style.display = 'inline-block';
+            };
+            if (event.target.files[0]) {
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        }
+    </script>
+</body>
+</html>

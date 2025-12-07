@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/Cart.css">
+</head>
+<body>
+
+    @Html.AntiForgeryToken()
+
+    <div class="cart-container">
+        <h1>Your Shopping Cart</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody id="cart-items">
+            </tbody>
+        </table>
+        <div class="cart-total">
+            <h2>Subtotal: $<span id="subtotal-price">0.00</span></h2>
+            <h3>Shipping: $<span id="shipping-price">5.00</span></h3>
+            <h2>Total: $<span id="total-price">0.00</span></h2>
+            <a asp-controller="Checkout" asp-action="Index">
+                <button id="checkout">Proceed to Checkout</button>
+            </a>
+        </div>
+    </div>
+    <input type="hidden" id="current-user-id" value="@ViewBag.UserId" />
+
+    @* <script src="/js/AddToCart.js"></script> *@
+</body>
+</html>

@@ -1,0 +1,49 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Thank You";
+}
+
+<head>
+    <link rel="stylesheet" href="/css/home.css" />
+    <style>
+        body {
+            background: url('/images/userbg.jpg');
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+            font-family: sans-serif;
+        }
+
+        .message-box {
+            background-color: #fff0f5;
+            border: 2px solid #ff66b2;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+            .message-box h1 {
+                color: #ff3385;
+                font-size: 2.5em;
+                margin-bottom: 15px;
+            }
+
+            .message-box p {
+                font-size: 1.2em;
+                color: #555;
+            }
+    </style>
+</head>
+
+<div class="message-box">
+    <h1>Thank you for your order!</h1>
+    <p>You will be redirected to the homepage in a few seconds...</p>
+</div>
+
+<script>
+    setTimeout(() => {
+        window.location.href = '/Home/Index';
+    }, 4000); // 4 secunde
+</script>

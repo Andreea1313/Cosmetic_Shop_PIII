@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="cart.css">
+    
+</head>
+<body>
+    <div class="top-right">
+        <div class="user-icon">
+            <a href="user.html">
+                <img src="D:\PAW\user.png" alt="User">
+            </a>
+        </div>
+     
+        <div class="heart-icon">
+            <a href="favorites.html">
+                <img src="D:\PAW\heart.png" alt="heart">
+            </a>
+        </div>
+    </div>
+
+
+    <div class="cart-container">
+        <h1>Your Shopping Cart</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody id="cart-items">
+            </tbody>
+        </table>
+        <div class="cart-total">
+            <h2>Subtotal: $<span id="subtotal-price">0.00</span></h2>
+            <h3>Shipping: $<span id="shipping-price">5.00</span></h3>
+            <h2>Total: $<span id="total-price">0.00</span></h2>
+            <a href="checkout.html">
+                <button id="checkout">Proceed to Checkout</button>
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        
+        document.addEventListener("DOMContentLoaded", function () {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            console.log("Cart loaded from localStorage:", cart); 
+
+            const cartItemsContainer = document.getElementById("cart-items");
+            const subtotalPriceElement = document.getElementById("subtotal-price");
+            const shippingPriceElement = document.getElementById("shipping-price");
+            const totalPriceElement = document.getElementById("total-price");
+
+            function updateCartDisplay() {
+                cartItemsContainer.innerHTML = "";
+                let subtotal = 0;
+
+                cart.forEach((item, index) => {
+                    let row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td><img src="${item.image}" alt="${item.name}" width="50"></td>
+                        <td>${item.name}</td>
+                        <td>${item.description}</td>
+                        <td>$${item.price}</td>
+                        <td>
+                            <input type="number" value="${item.quantity}" min="1" data-index="${index}" class="quantity-input">
+                        </td>
+                        <td>$${(item.price * item.quantity).toFixed(2)}</td>
+                        <td><button class="remove-item" data-index="${index}">Remove</button></td>
+                    `;
+                    cartItemsContainer.appendChild(row);
+                    subtotal += item.price * item.quantity;
+                });
+
+                let shipping = subtotal > 50 ? 0 : 5;
+                
+                subtotalPriceElement.textContent = subtotal.toFixed(2);
+                shippingPriceElement.textContent = shipping.toFixed(2);
+                totalPriceElement.textContent = (subtotal + shipping).toFixed(2);
+
+                localStorage.setItem("cart", JSON.stringify(cart));
+            }
+
+            cartItemsContainer.addEventListener("click", function (e) {
+                if (e.target.classList.contains("remove-item")) {
+                    const index = e.target.getAttribute("data-index");
+                    cart.splice(index, 1);
+                    updateCartDisplay();
+                }
+            });
+
+            cartItemsContainer.addEventListener("change", function (e) {
+                if (e.target.classList.contains("quantity-input")) {
+                    const index = e.target.getAttribute("data-index");
+                    cart[index].quantity = parseInt(e.target.value);
+                    updateCartDisplay();
+                }
+            });
+
+            updateCartDisplay();
+        });
+    </script>
+
+<footer>
+    <div class="about-us-button">
+        <a href="about_us.html">
+            <button>About Us</button>
+        </a>
+    </div>
+    
+    <div class="footer-content">
+        <div class="contact-info">
+            <h3>Contact Us</h3>
+            <p>Email: support@cosmeticstore.com</p>
+            <p>Phone: +123-456-7890</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>  

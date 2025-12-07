@@ -1,0 +1,75 @@
+﻿@model List<CosmeticShop.Models.Product>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Page</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/Category.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+</head>
+<body>
+    <div class="free-shipping">🚚 Free shipping over 50$ 🚚</div>
+    <header>
+        <h1 id="category-title">@ViewBag.Category</h1>
+    </header>
+
+    <div>
+        <img id="category-image" class="topimg" src="/images/hairpic.webp" alt="Category Image">
+    </div>
+ 
+    <div class="container">
+
+
+        <section class="products" id="product-list">
+            @foreach (var product in Model)
+            {
+                <div class="product" data-category="@product.Category">
+                 
+                    <a asp-controller="Product" asp-action="Index"
+                       asp-route-productId="@product.ProductId"
+                       asp-route-image="@product.ImageUrl"
+                       asp-route-name="@product.Name"
+                       asp-route-description="@product.Description"
+                       asp-route-price="@product.Price"
+                       asp-route-userId="@ViewBag.UserId">
+                        <!-- pass userId in URL -->
+                        <img src="@product.ImageUrl" alt="@product.Name">
+                    </a>
+
+                    <!-- Product details -->
+                    <h3>@product.Name</h3>
+                    <p>@product.Description</p>
+                    <div class="price">$@product.Price</div>
+
+                    <div>
+                        <button class="add-to-cart"
+                                data-product-id="@product.ProductId"
+                                data-user-id="@ViewBag.UserId">
+                            Add to Cart
+                        </button>
+                    </div>
+
+                    <!-- Like button -->
+                    <button class="like-btn" data-product-id="@product.ProductId" data-user-id="@ViewBag.UserId">
+                        @{
+                            var favIds = ViewBag.FavoriteProductIds as List<int> ?? new List<int>();
+                            bool isFav = favIds.Contains(product.ProductId);
+                        }
+
+                        <i class="@(isFav ? "fa-solid" : "fa-regular") fa-heart"></i>
+                    </button>
+                </div>
+            }
+
+
+        </section>
+    </div>
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="current-user-id" value="@ViewBag.UserId" />
+    <script src="/js/Category.js"></script>
+    @* <script src="/js/AddToCart.js"></script> *@
+</body>
+</html>

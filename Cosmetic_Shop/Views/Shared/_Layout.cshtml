@@ -1,0 +1,91 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using CosmeticShop.Models
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@Html.AntiForgeryToken()
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Cosmetic_Shop</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://localhost:7121/css/home.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Cosmetic_Shop.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-p...==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+
+    @* <script> *@
+    @*     document.addEventListener("DOMContentLoaded", function () { *@
+    @*     const params = new URLSearchParams(window.location.search); *@
+    @*     if (!params.has("userId")) { *@
+    @*     params.set("userId", "1"); *@
+    @*     window.location.search = params.toString(); *@
+    @*     } *@
+    @*     }); *@
+    @* </script> *@
+
+    <header>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <div class="top-right">
+                @* <div class="cart-icon"> *@
+                @*     <a asp-controller="Cart" asp-action="Index"> *@
+                @*         <img src="/images/cart.png" alt="Cart"> *@
+                @*     </a> *@
+                @* </div> *@
+
+                @* <div class="heart-icon"> *@
+                @*     <a asp-controller="Favorites" asp-action="Index"> *@
+                @*         <img src="/images/heart.png" alt="Heart"> *@
+                @*     </a> *@
+                @* </div> *@
+
+            </div>
+        }
+         <partial name="_LoginPartial" /> 
+    </header>
+
+    <div>
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer>
+
+        <div class="about-us-button">
+                <a asp-controller="AboutUs" asp-action="Index">
+                    <button class="about-btn">About us</button>
+                 </a>
+
+        </div>
+
+        <div class="footer-content">
+
+            <div class="contact-info">
+                <h3>Contact Us</h3>
+                <p>Email: support@cosmeticstore.com</p>
+                <p>Phone: +123-456-7890</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @if (!ViewContext.RouteData.Values["controller"]?.ToString().Equals("Product", StringComparison.OrdinalIgnoreCase) ?? true)
+    {
+        <script src="~/js/AddToCart.js"></script>
+    }
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

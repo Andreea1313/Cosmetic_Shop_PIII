@@ -1,0 +1,41 @@
+﻿@page
+@model RegisterConfirmationModel
+@{
+    Layout = "~/Views/Shared/AuthLayout.cshtml";
+    ViewData["Title"] = "Register Confirmation";
+}
+
+<div class="login-page-wrapper">
+    <div class="login-form-container" style="text-align: center;">
+        <h2 style="color: #d10042; font-size: 26px; margin-bottom: 20px;">
+            Registration Successful
+        </h2>
+
+        @if (Model.DisplayConfirmAccountLink)
+        {
+            <p style="color: #333; font-size: 16px; margin-bottom: 20px;">
+                This app does not currently have a real email sender registered. See
+                <a href="https://aka.ms/aspaccountconf" target="_blank">these docs</a> for how to configure a real email sender.
+            </p>
+            <p style="margin-top: 10px;">
+                Normally this would be emailed:
+                <br />
+                <a id="confirm-link" href="@Model.EmailConfirmationUrl" style="color: #e83e8c; font-weight: bold;">
+                    Click here to confirm your account
+                </a>
+            </p>
+        }
+        else
+        {
+            <p style="color: #444; font-size: 16px;">
+                Please check your email to confirm your account.
+            </p>
+        }
+
+        <div style="margin-top: 30px;">
+            <a asp-page="./Login" class="login-button" style="text-decoration: none; display: inline-block; width: auto; padding: 10px 25px;">
+                Go to Login
+            </a>
+        </div>
+    </div>
+</div>

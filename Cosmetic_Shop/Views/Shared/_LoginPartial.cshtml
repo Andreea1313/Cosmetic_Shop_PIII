@@ -1,0 +1,70 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using CosmeticShop.Models
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    var user = UserManager.GetUserAsync(User).Result;
+    var profilePicPath = user?.ProfilePicturePath ?? "/images/user.png";
+    var isAdmin = UserManager.IsInRoleAsync(user, "Admin").Result;
+
+    <div class="top-right-icons">
+        <div class="home-icon">
+            <a asp-controller="Home" asp-action="Index" title="Home">
+                <img src="/images/home.png" alt="Home" />
+            </a>
+        </div>
+
+        <div class="cart-icon">
+            <a asp-controller="Cart" asp-action="Index">
+                <img src="/images/cart.png" alt="Cart">
+            </a>
+        </div>
+
+        <div class="heart-icon">
+            <a asp-controller="Favorites" asp-action="Index">
+                <img src="/images/heart.png" alt="Favorites">
+            </a>
+        </div>
+
+        @if (isAdmin)
+        {
+            <div class="admin-view-accounts">
+                <a href="/Home/ViewAccounts" class="view-accounts-btn" title="View Accounts">
+                    <i class="fa-solid fa-users-gear"></i>
+                </a>
+            </div>
+
+            <div class="admin-view-accounts">
+                <a href="/Home/ManageProducts" class="view-accounts-btn" title="Manage Products">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                </a>
+            </div>
+
+        }
+
+        <div style="user-icon">
+            <a href="/Home/ViewOrders" class="view-accounts-btn" title="View Orders">
+                <i class="fa-solid fa-file-invoice"></i>
+            </a>
+        </div>
+
+        <div class="user-icon">
+            <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                <img src="@profilePicPath"
+                     alt="Profile"
+                     style="width: 40px; height: 40px; border-radius: 50%; object-fit: fill; object-position: center;" />
+            </a>
+        </div>
+
+        <div class="logout-icon">
+            <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout"
+                  asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="btn btn-link p-0" title="Logout">
+                    <img src="/images/logout.png" alt="Logout" />
+                </button>
+            </form>
+        </div>
+    </div>
+}

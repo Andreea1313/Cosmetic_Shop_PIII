@@ -1,0 +1,229 @@
+﻿@model IEnumerable<CosmeticShop.Models.Order>
+
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+<link rel="stylesheet" href="~/css/admin.css" />
+
+<section class="orders-page">
+    <h2 class="orders-title">
+        <i class="fa fa-box"></i> @ViewData["Title"]
+    </h2>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="no-orders">
+            <i class="fa fa-inbox"></i>
+            <p>You have no orders yet.</p>
+        </div>
+    }
+    else
+    {
+        foreach (var order in Model)
+        {
+            <div class="order-card">
+                <header class="order-header">
+                    <div class="order-meta">
+                        <h3>Order <span>#@order.OrderId</span></h3>
+                        <p class="order-date">
+                            <i class="fa fa-calendar-alt"></i> @order.OrderDate.ToString("f")
+                        </p>
+                    </div>
+                    <div class="order-total">
+                        <span class="label">Total:</span>
+                        <span class="value">$@order.TotalAmount</span>
+                    </div>
+                </header>
+
+                <div class="order-info">
+                    <div class="info-column">
+                        <p><strong>User ID:</strong> @order.UserId</p>
+                        <p><strong>Phone:</strong> @order.PhoneNumber</p>
+                    </div>
+                    <div class="info-column">
+                        <p><strong>Address:</strong> @order.Address, @order.City, @order.ZIPCode</p>
+                        <p><strong>Payment:</strong> @order.PaymentType?.Name</p>
+                    </div>
+                </div>
+
+                @if (order.OrderProducts != null && order.OrderProducts.Any())
+                {
+                    <table class="order-products">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Qty</th>
+                                <th>Unit Price</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in order.OrderProducts)
+                            {
+                                <tr>
+                                    <td>@item.Product?.Name</td>
+                                    <td>@item.Quantity</td>
+                                    <td>$@item.PriceAtOrder</td>
+                                    <td>$@(item.Quantity* item.PriceAtOrder)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p class="no-products">
+                        <i class="fa fa-exclamation-circle"></i> No products found for this order.
+                    </p>
+                }
+            </div>
+        }
+    }
+</section>
+
+<style>
+
+    .orders-page {
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 0 15px;
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    .orders-title {
+        text-align: center;
+        margin-bottom: 25px;
+        font-size: 28px;
+        color: #333;
+        border-bottom: 3px solid #2b8ced;
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+
+    .no-orders {
+        text-align: center;
+        color: #999;
+        margin-top: 50px;
+        font-size: 18px;
+    }
+
+        .no-orders i {
+            font-size: 48px;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+
+    .order-card {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        padding: 20px 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        transition: all 0.2s ease-in-out;
+    }
+
+        .order-card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+    .order-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+
+    .order-meta h3 {
+        margin: 0;
+        font-size: 20px;
+        color: #2b8ced;
+    }
+
+    .order-meta span {
+        color: #222;
+    }
+
+    .order-date {
+        color: #777;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    .order-total {
+        text-align: right;
+    }
+
+        .order-total .label {
+            font-weight: bold;
+            color: #333;
+            margin-right: 6px;
+        }
+
+        .order-total .value {
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+    .order-info {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-bottom: 15px;
+        gap: 10px;
+    }
+
+    .info-column {
+        flex: 1;
+        min-width: 250px;
+    }
+
+    .order-products {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        font-size: 15px;
+    }
+
+        .order-products th {
+            background: #f2f7ff;
+            color: #333;
+            text-align: left;
+            padding: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .order-products td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-products tr:hover {
+            background-color: #fafcff;
+        }
+
+    .no-products {
+        color: #999;
+        font-style: italic;
+        margin-top: 10px;
+    }
+        .order-header
+    {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .order-info {
+        flex-direction: column;
+    }
+
+    .order-total {
+        margin-top: 10px;
+    }
+
+</style>
