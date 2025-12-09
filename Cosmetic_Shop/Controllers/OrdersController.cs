@@ -14,14 +14,10 @@ namespace CosmeticShop.Controllers
         public OrdersController(CosmeticShopContext context)
         {
             _context = context;
-        }
-
-        // ===========================
-        // 🔹 View all orders (admin)
-        // ===========================
+        
         public async Task<IActionResult> ViewOrders()
         {
-            // ✅ Aducem comenzile existente doar pe baza UserId numeric
+            
             var orders = await _context.Orders
                 .Include(o => o.PaymentType)
                 .Include(o => o.OrderProducts)
@@ -29,7 +25,7 @@ namespace CosmeticShop.Controllers
                 .OrderByDescending(o => o.OrderDate)
                 .ToListAsync();
 
-            // 🔍 Debug in consola
+        
             System.Console.WriteLine($"[DEBUG] Orders loaded: {orders.Count}");
             foreach (var o in orders)
                 System.Console.WriteLine($"Order #{o.OrderId} - UserId={o.UserId} - Total={o.TotalAmount}");
@@ -37,9 +33,7 @@ namespace CosmeticShop.Controllers
             return View("~/Views/Orders/ViewOrders.cshtml", orders);
         }
 
-        // ===========================
-        // 🔹 View orders by userId numeric
-        // ===========================
+        
         public async Task<IActionResult> UserOrders(int userId)
         {
             var orders = await _context.Orders
